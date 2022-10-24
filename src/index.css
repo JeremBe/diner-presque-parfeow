@@ -1,6 +1,12 @@
-body {
+@font-face {
+  font-family: "Nunito_Sans";
+  src: local("Nunito_Sans"),
+    url("./fonts/Nunito_Sans/NunitoSans-Regular.ttf") format("truetype");
+}
+
+body, html {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Nunito_Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -8,6 +14,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family:'Nunito_Sans', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
