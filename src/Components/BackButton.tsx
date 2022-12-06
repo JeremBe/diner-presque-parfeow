@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const BackContainer = styled.div`
     position: absolute;
     display: flex;

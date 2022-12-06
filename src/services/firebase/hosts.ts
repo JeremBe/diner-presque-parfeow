@@ -1,6 +1,8 @@
-import {collection, query, orderBy, addDoc, getDoc, getDocs, updateDoc, doc, Timestamp} from 'firebase/firestore'
+import {
+	collection, query, orderBy, addDoc, getDoc, getDocs, updateDoc, doc, Timestamp
+} from 'firebase/firestore'
 
-import {db} from './database'
+import { db } from './database'
 
 import CryptoJS from 'crypto-js'
 
@@ -44,72 +46,72 @@ export type Document = {
 const passphrase = 'Eow!9'
 
 export const encryptWithAES = (text: string) => {
-  return CryptoJS.AES.encrypt(text, passphrase).toString()
+	return CryptoJS.AES.encrypt(text, passphrase).toString()
 }
 
 const decryptWithAES = (ciphertext: string) => {
-  const bytes = CryptoJS.AES.decrypt(ciphertext, passphrase)
-  const originalText = bytes.toString(CryptoJS.enc.Utf8)
-  return originalText
+	const bytes = CryptoJS.AES.decrypt(ciphertext, passphrase)
+	const originalText = bytes.toString(CryptoJS.enc.Utf8)
+	return originalText
 }
 
 const defaultDocument: Omit<Document, 'id'> = {
-    name: 'JV et Bleu',
-    image: 'jv',
-    menu: {
-        theme: 'Surprise',
-        apero: '',
-        entree: "",
-        plat: "",
-        dessert: "",
-    },
-    reviews: [],
-    feelings: [],
-    address: '',
-    deco: false,
-    event_date: '',
-    users: ['JV', 'Bleu'],
-    open_vote: false
+	name: 'JV et Bleu',
+	image: 'jv',
+	menu: {
+		theme: 'Surprise',
+		apero: '',
+		entree: '',
+		plat: '',
+		dessert: ''
+	},
+	reviews: [],
+	feelings: [],
+	address: '',
+	deco: false,
+	event_date: '',
+	users: ['JV', 'Bleu'],
+	open_vote: false
 }
 
 const hostsCollection = collection(db, 'hosts')
 
 export async function createDoc(data: Partial<Document>) {
-    await addDoc(hostsCollection, {
-        created_at: Timestamp.now(),
-        ...defaultDocument
-    })
+	await addDoc(hostsCollection, {
+		created_at: Timestamp.now(),
+		...defaultDocument
+	})
 }
 
 export async function fetchDoc(id: string) {
-    const docRef = doc(hostsCollection, id)
-    const response = await getDoc(docRef)
+	const docRef = doc(hostsCollection, id)
+	const response = await getDoc(docRef)
 
-    const document = response.data()
+	const document = response.data()
 
-    return {
-        ...document,
-        id: response.id,
-        address: decryptWithAES(document!.address)
-    } as Document
+	return {
+		...document,
+		id: response.id,
+		address: decryptWithAES(document!.address)
+	} as Document
 }
 
 export async function getDocList() {
-    const documentQuery = query(hostsCollection, orderBy('created_at', 'desc'))
-    const hostsSnapshot = await getDocs(documentQuery)
+	const documentQuery = query(hostsCollection, orderBy('created_at', 'desc'))
+	const hostsSnapshot = await getDocs(documentQuery)
 
-    return hostsSnapshot.docs.map(doc => {
-        const document = doc.data()
+	return hostsSnapshot.docs.map(doc => {
+		const document = doc.data()
 
-        return {
-            ...document,
-            id: doc.id,
-            address: decryptWithAES(document!.address)
-        }
-    }) as Document[]
+		return {
+			...document,
+			id: doc.id,
+			address: decryptWithAES(document!.address)
+		}
+	}) as Document[]
 }
 
 export async function update(id: string, data: Partial<Document>) {
-    const docRef = doc(hostsCollection, id)
-    await updateDoc(docRef, data)
+	const docRef = doc(hostsCollection, id)
+	await updateDoc(docRef, data)
 }

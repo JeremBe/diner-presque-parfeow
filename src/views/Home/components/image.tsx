@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Document } from '../../../services/firebase/hosts';
+import { Document } from '../../../services/firebase/hosts'
 
 import couple from '../../../images/couple.jpeg'
 import jelo from '../../../images/jelo.jpg'
@@ -20,21 +20,21 @@ const Img = styled.img`
 `
 
 const imageTargets = {
-  jelo,
-  jv,
-  cle,
-  quentin,
-  raf,
-  seb,
-  couple
+	jelo,
+	jv,
+	cle,
+	quentin,
+	raf,
+	seb,
+	couple
 }
 
-function Image({target}: {target: Document['image']}) {
-  const imgTarget = imageTargets[target]
+function Image({ target }: {target: Document['image']}) {
+	const imgTarget = imageTargets[target]
 
-  return (
-    <Img src={imgTarget} />
-  );
+	return (
+		<Img src={imgTarget} />
+	)
 }
 
-export default Image;
+export default Image

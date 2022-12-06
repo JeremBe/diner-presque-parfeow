@@ -1,5 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
-import styled from 'styled-components';
+import React, {
+	useContext, useEffect, useState
+} from 'react'
+import styled from 'styled-components'
 
 import couple from '../../../images/couple.jpeg'
 import jelo from '../../../images/jelo.jpg'
@@ -9,9 +11,11 @@ import quentin from '../../../images/quentin.jpg'
 import raf from '../../../images/raf.jpg'
 import seb from '../../../images/seb.jpg'
 
-import AppContext from '../../../contexts/AppContext';
+import AppContext from '../../../contexts/AppContext'
 
-import { Document, getDocList } from '../../../services/firebase/hosts'
+import {
+	Document, getDocList
+} from '../../../services/firebase/hosts'
 
 const Img = styled.img`
     object-fit: cover;
@@ -28,43 +32,47 @@ const Container = styled.div`
 `
 
 const imageTargets = {
-  jelo,
-  jv,
-  cle,
-  quentin,
-  raf,
-  seb,
-  couple
+	jelo,
+	jv,
+	cle,
+	quentin,
+	raf,
+	seb,
+	couple
 }
 
 function Reviewers({ reviews }: {reviews: Document['reviews']}) {
-  const app = useContext(AppContext)
-  const [guests, setGuests] = useState<{image: Document['image'] | undefined}[]>([])
+	const app = useContext(AppContext)
+	const [guests, setGuests] = useState<{image: Document['image'] | undefined}[]>([])
 
-  function setGuestArray(hosts: Document[]) {
-    setGuests([...reviews.map((review) => {
-        const host = hosts.find(host => host.id === review.guestId)
-        return { image: host?.image }
-    })])
-  }
+	function setGuestArray(hosts: Document[]) {
+		setGuests([...reviews.map((review) => {
+			const host = hosts.find(host => {
+				return host.id === review.guestId
+			})
+			return { image: host?.image }
+		})])
+	}
 
-  useEffect(()=> {
-    if(app?.hosts.length) {
-        setGuestArray(app.hosts)
-    } else {
-        getDocList().then(hosts => {
-            setGuestArray(hosts)
-        })
-    }
+	useEffect(() => {
+		if(app?.hosts.length) {
+			setGuestArray(app.hosts)
+		} else {
+			getDocList().then(hosts => {
+				setGuestArray(hosts)
+			})
+		}
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
-  return (
-    <Container>
-        {guests.map((guest, index) => (<Img key={index} src={imageTargets[guest.image ?? 'couple']} />))}
-    </ Container>
-  );
+	return (
+		<Container>
+			{guests.map((guest, index) => {
+				return (<Img key={index} src={imageTargets[guest.image ?? 'couple']} />)
+			})}
+		</ Container>
+	)
 }
 
-export default Reviewers;
+export default Reviewers

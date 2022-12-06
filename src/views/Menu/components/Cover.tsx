@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 import { Document } from '../../../services/firebase/hosts'
-import { getImageByName } from '../../../utils/getImage';
+import { getImageByName } from '../../../utils/getImage'
 
 const Img = styled.img`
     object-fit: cover;
@@ -12,11 +12,11 @@ const Img = styled.img`
 `
 
 function Image({ target }: {target: Document['image']}) {
-  const imgTarget = getImageByName(target)
+	const imgTarget = getImageByName(target)
 
-  return (
-    <Img src={imgTarget} />
-  );
+	return (
+		<Img src={imgTarget} />
+	)
 }
 
-export default Image;
+export default Image

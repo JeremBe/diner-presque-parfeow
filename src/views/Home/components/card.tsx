@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Image from './image'
 import { type Document } from '../../../services/firebase/hosts'
@@ -26,27 +26,27 @@ type CardProps = {
     document: Document
 }
 
-function Card({document}: CardProps ) {
-    const navigate = useNavigate()
+function Card({ document }: CardProps) {
+	const navigate = useNavigate()
 
-    function goTo() {
-        navigate(`menu/${document.id}`)
-    }
+	function goTo() {
+		navigate(`menu/${document.id}`)
+	}
 
-    return (
-        <Container onClick={goTo}>
-            <Image target={document.image}/>
-            <ContentContainer>
-                <p>
-                    {document.name}
-                    {document.event_date && <FloatRight>{dayjs(document.event_date).format('DD/MM')}</FloatRight>}
-                </p>
-                <p>
+	return (
+		<Container onClick={goTo}>
+			<Image target={document.image}/>
+			<ContentContainer>
+				<p>
+					{document.name}
+					{document.event_date && <FloatRight>{dayjs(document.event_date).format('DD/MM')}</FloatRight>}
+				</p>
+				<p>
                     Menu {document.menu.theme}
-                </p>
-            </ContentContainer>
-        </Container>
-    )
+				</p>
+			</ContentContainer>
+		</Container>
+	)
 }
 
-export default Card;
+export default Card

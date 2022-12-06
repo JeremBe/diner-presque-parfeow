@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-
 
 const Container = styled.div`
     display: flex;
@@ -24,28 +23,34 @@ const Rate = styled.div<RateProps>`
     line-height: 44px;
     font-size: 14px;
     color: #355764;
-    ${props => props.selected && 'background-color: rgba(53, 87, 100, 0.2); font-weight: bold;'}
+    ${props => {
+		return props.selected && 'background-color: rgba(53, 87, 100, 0.2); font-weight: bold;'
+	}}
 `
 
 type RatingsProps = {
     setRate: (rate: number) => void
 }
 
-function Ratings({setRate}: RatingsProps) {
-    const [selected, setSelected] = useState<number>(0)
+function Ratings({ setRate }: RatingsProps) {
+	const [selected, setSelected] = useState<number>(0)
 
-    function select(rate: number) {
-        setSelected(rate)
-        setRate(rate)
-    }
+	function select(rate: number) {
+		setSelected(rate)
+		setRate(rate)
+	}
 
-    return (
-        <Container>
-            {
-                Array(10).fill(null).map((_, i) => <Rate key={i} selected={selected >= i+1} onClick={() => select(i+1)}>{i+1}</Rate>)
-            }
-        </Container>
-    )
+	return (
+		<Container>
+			{
+				Array(10).fill(null).map((_, i) => {
+					return <Rate key={i} selected={selected >= i + 1} onClick={() => {
+						return select(i + 1)
+					}}>{i + 1}</Rate>
+				})
+			}
+		</Container>
+	)
 }
 
-export default Ratings;
+export default Ratings

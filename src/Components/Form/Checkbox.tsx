@@ -1,5 +1,7 @@
-import styled from 'styled-components';
-import { FieldInputProps, FormikState } from 'formik';
+import styled from 'styled-components'
+import {
+	FieldInputProps, FormikState
+} from 'formik'
 
 const Switch = styled.label`
     position: relative;
@@ -51,19 +53,19 @@ const Slider = styled.span`
 `
 
 const Checkbox = ({
-    field,
-    form,
-    ...props
-  }: {
+	field,
+	form,
+	...props
+}: {
     field: FieldInputProps<any>;
     form: FormikState<any>;
   }) => {
-    return (
-        <Switch>
-            <Input {...field} {...props} />
-            <Slider />
-        </Switch>
-    )
+	return (
+		<Switch>
+			<Input {...field} {...props} />
+			<Slider />
+		</Switch>
+	)
 }
 
 export default Checkbox
